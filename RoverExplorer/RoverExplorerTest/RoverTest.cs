@@ -20,12 +20,27 @@ namespace RoverExplorerTest
         [TestMethod]
         public void TestMoveForward()
         {
-            var rover = new Rover(terrainGrid.Object, new GridPoint(0, 0), CompassDirection.NORTH);
+            GridPoint originalPOsition = new GridPoint(0, 0);
+            CompassDirection originalRoverDirection = CompassDirection.NORTH;
+            var rover = new Rover(terrainGrid.Object, originalPOsition, originalRoverDirection);
 
             var newPosition = rover.MoveForward();
 
-            Assert.IsTrue(newPosition.X == 1 && newPosition.Y == 0);
-            Assert.IsTrue(rover.CompassCurrentOrientation == CompassDirection.NORTH);
+            Assert.IsTrue(newPosition.X == originalPOsition.X && newPosition.Y == originalPOsition.Y + 1);
+            Assert.IsTrue(rover.CompassCurrentOrientation == originalRoverDirection);
+        }
+
+        [TestMethod]
+        public void TestMoveBackward()
+        {
+            GridPoint originalPOsition = new GridPoint(0, 0);
+            CompassDirection originalRoverDirection = CompassDirection.NORTH;
+            var rover = new Rover(terrainGrid.Object, originalPOsition, originalRoverDirection);
+
+            var newPosition = rover.MoveBackward();
+
+            Assert.IsTrue(newPosition.X == originalPOsition.X && newPosition.Y == originalPOsition.Y - 1);
+            Assert.IsTrue(rover.CompassCurrentOrientation == originalRoverDirection);
         }
     }
 }

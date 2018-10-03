@@ -31,10 +31,6 @@ namespace RoverExplorer.PlanetRepresentation
         public int MaxY { get; private set; }
         public List<GridPoint> Obstacles { get; private set; }
 
-        //public (int X, int Y) GetSize()
-        //{
-        //    return (X: MaxX, Y MaxY);
-        //}
 
         public bool ObstacleExists(GridPoint position)
         {

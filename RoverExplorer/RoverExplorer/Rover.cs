@@ -15,34 +15,35 @@ namespace RoverExplorer
     public class Rover
     {
         ITerrainGrid _planetTerrainGrid;
-        
-        readonly GridPoint _cussrentGridPosition;
 
         public Rover(ITerrainGrid terrain)
         {
             _planetTerrainGrid = terrain;
             CompassCurrentOrientation = CompassDirection.NORTH;
-            _cussrentGridPosition = new GridPoint(0,0);
+            CussrentGridPosition = new GridPoint(0,0);
         }
         public Rover(ITerrainGrid terrain, GridPoint initialPosition, CompassDirection orientation) 
             : this(terrain)
         {
             CompassCurrentOrientation = orientation;
-            _cussrentGridPosition = initialPosition;
+            CussrentGridPosition = initialPosition;
         }
 
         public CompassDirection CompassCurrentOrientation { get; private set; }
+        public GridPoint CussrentGridPosition { get; private set; }
+
 
         public GridPoint MoveForward()
         {
-            switch (CompassCurrentOrientation)
-            {
-                case CompassDirection.NORTH:
-                    return new GridPoint(_cussrentGridPosition.X + 1, _cussrentGridPosition.Y);
-                default:
-                    return _cussrentGridPosition;
-            }
-            
+            var newPosition = new GridPoint(CussrentGridPosition.X, CussrentGridPosition.Y + 1);
+            return CussrentGridPosition = newPosition;
+        }
+
+        public GridPoint MoveBackward()
+        {
+            var newPosition = new GridPoint(CussrentGridPosition.X, CussrentGridPosition.Y - 1);
+            return CussrentGridPosition = newPosition;
+
         }
     }
 }
