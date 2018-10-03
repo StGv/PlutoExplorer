@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2035
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoverExplorer", "RoverExplorer\RoverExplorer.csproj", "{1D003EEE-0CD9-4DF9-8995-E0D332D13146}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoverExplorerTest", "RoverExplorerTest\RoverExplorerTest.csproj", "{3A084956-51C9-4E06-9C76-F4CE31EF2A11}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1D003EEE-0CD9-4DF9-8995-E0D332D13146}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D003EEE-0CD9-4DF9-8995-E0D332D13146}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D003EEE-0CD9-4DF9-8995-E0D332D13146}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D003EEE-0CD9-4DF9-8995-E0D332D13146}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A084956-51C9-4E06-9C76-F4CE31EF2A11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A084956-51C9-4E06-9C76-F4CE31EF2A11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A084956-51C9-4E06-9C76-F4CE31EF2A11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A084956-51C9-4E06-9C76-F4CE31EF2A11}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F260DF8F-79F3-4075-89A6-E1C412235B0C}
+	EndGlobalSection
+EndGlobal
