@@ -33,17 +33,52 @@ namespace RoverExplorer
         public GridPoint CussrentGridPosition { get; private set; }
 
 
-        public GridPoint MoveForward()
+        public void MoveForward()
         {
-            var newPosition = new GridPoint(CussrentGridPosition.X, CussrentGridPosition.Y + 1);
-            return CussrentGridPosition = newPosition;
+            CussrentGridPosition = new GridPoint(CussrentGridPosition.X, CussrentGridPosition.Y + 1);
         }
 
-        public GridPoint MoveBackward()
+        public void  MoveBackward()
         {
-            var newPosition = new GridPoint(CussrentGridPosition.X, CussrentGridPosition.Y - 1);
-            return CussrentGridPosition = newPosition;
+            CussrentGridPosition = new GridPoint(CussrentGridPosition.X, CussrentGridPosition.Y - 1);
+        }
 
+        public void TurnLeft()
+        {
+            switch (CompassCurrentOrientation)
+            {
+                case CompassDirection.NORTH:
+                    CompassCurrentOrientation = CompassDirection.WEST;
+                    break;
+                case CompassDirection.SOUTH:
+                    CompassCurrentOrientation = CompassDirection.EAST;
+                    break;
+                case CompassDirection.EAST:
+                    CompassCurrentOrientation = CompassDirection.NORTH;
+                    break;
+                case CompassDirection.WEST:
+                    CompassCurrentOrientation = CompassDirection.SOUTH;
+                    break;
+            }
+        }
+
+        public void TurnRight()
+        {
+            switch (CompassCurrentOrientation)
+            {
+                case CompassDirection.NORTH:
+                    CompassCurrentOrientation = CompassDirection.EAST;
+                    break;
+                case CompassDirection.SOUTH:
+                    CompassCurrentOrientation = CompassDirection.WEST;
+                    break;
+                case CompassDirection.EAST:
+                    CompassCurrentOrientation = CompassDirection.SOUTH;
+                    break;
+                case CompassDirection.WEST:
+                    CompassCurrentOrientation = CompassDirection.NORTH;
+                    break;
+            }
         }
     }
 }
