@@ -1,4 +1,4 @@
-﻿
+﻿using System;
 
 namespace RoverExplorer.PlanetRepresentation
 {
@@ -6,6 +6,9 @@ namespace RoverExplorer.PlanetRepresentation
     {
         public GridPoint(int X, int Y)
         {
+            if (X < 0 || Y < 0)
+                throw new ArgumentException("X and Y can be only positive numbers");
+
             this.X = X;
             this.Y = Y;
         }

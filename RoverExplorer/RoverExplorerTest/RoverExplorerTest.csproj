@@ -65,8 +65,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GridPointTest.cs" />
     <Compile Include="RoverTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TerrainGridTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

@@ -14,15 +14,12 @@ namespace RoverExplorer.PlanetRepresentation
 
     public class TerrainGrid : ITerrainGrid
     {
-        public TerrainGrid(int maxX, int maxY)
+
+        public TerrainGrid(int maxX, int maxY, List<GridPoint> obstacles = null)
         {
+            Obstacles = (obstacles == null) ? new List<GridPoint>() : obstacles;
             MaxX = maxX;
             MaxY = maxX;
-        }
-
-        public TerrainGrid(int maxX, int maxY, List<GridPoint> obstacles) : this(maxX, maxY)
-        {
-            Obstacles = obstacles;
         }
 
         public int MaxX { get; private set; }
@@ -34,40 +31,31 @@ namespace RoverExplorer.PlanetRepresentation
             return Obstacles.Any(obstacle => obstacle.X == position.X && obstacle.Y == position.Y);
         }
 
-        public GridPoint GetNextGridPoint(GridPoint fromPosition, CompassDirection direction)
+        public GridPoint AdvanceNorth(GridPoint fromPosition)
         {
-            switch (direction)
-            {
-                case CompassDirection.NORTH:
-                    return AdvanceNorth(fromPosition);
-                case CompassDirection.SOUTH:
-                    return AdvanceSouth(fromPosition);
-                case CompassDirection.EAST:
-                    return AdvanceEast(fromPosition);
-                case CompassDirection.WEST:
-                    return AdvanceWest(fromPosition);
-                default:
-                    return new GridPoint(fromPosition.X, fromPosition.Y);
-            }
+            return (fromPosition.Y + 1 == MaxY)
+                ? new GridPoint(fromPosition.X, 0)
+                : new GridPoint(fromPosition.X, fromPosition.Y + 1);
         }
 
-        public GridPoint AdvanceNorth(GridPoint currentPosition)
+        public GridPoint AdvanceSouth(GridPoint fromPosition)
         {
-            return new GridPoint(currentPosition.X, currentPosition.Y + 1);
+            return (fromPosition.Y == 0)
+                ? new GridPoint(fromPosition.X, MaxY - 1)
+                : new GridPoint(fromPosition.X, fromPosition.Y - 1);
         }
 
-        public GridPoint AdvanceSouth(GridPoint currentPosition)
+        public GridPoint AdvanceEast(GridPoint fromPosition)
         {
-            return new GridPoint(currentPosition.X, currentPosition.Y - 1);
+            return (fromPosition.X + 1 == MaxX)
+                ? new GridPoint( 0, fromPosition.Y)
+                : new GridPoint(fromPosition.X + 1, fromPosition.Y);
         }
-
-        public GridPoint AdvanceEast(GridPoint currentPosition)
+        public GridPoint AdvanceWest(GridPoint fromPosition)
         {
-            return new GridPoint(currentPosition.X + 1, currentPosition.Y);
-        }
-        public GridPoint AdvanceWest(GridPoint currentPosition)
-        {
-            return new GridPoint(currentPosition.X - 1, currentPosition.Y);
+            return (fromPosition.X == 0)
+                ? new GridPoint(MaxX - 1, fromPosition.Y)
+                : new GridPoint(fromPosition.X - 1, fromPosition.Y);
         }
     }
 }

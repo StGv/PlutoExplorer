@@ -3,7 +3,7 @@ using System;
 
 namespace RoverExplorer
 {
-    public enum Orientation
+    public enum Directions
     {
         Forward = 'F',
         Backward = 'B',
@@ -34,17 +34,57 @@ namespace RoverExplorer
 
         public void MoveForward()
         {
-            var newPosition = _planetTerrainGrid.GetNextGridPoint(CurrentGridPosition, CompassCurrentOrientation);
+            GridPoint newPosition; 
+            switch (CompassCurrentOrientation)
+            {
+                case CompassDirection.NORTH:
+                    newPosition = _planetTerrainGrid.AdvanceNorth(CurrentGridPosition);
+                    break;
+                case CompassDirection.SOUTH:
+                    newPosition = _planetTerrainGrid.AdvanceSouth(CurrentGridPosition);
+                    break;
+                case CompassDirection.EAST:
+                    newPosition = _planetTerrainGrid.AdvanceEast(CurrentGridPosition);
+                    break;
+                case CompassDirection.WEST:
+                    newPosition = _planetTerrainGrid.AdvanceWest(CurrentGridPosition);
+                    break;
+                default:
+                    newPosition = CurrentGridPosition;
+                    break;
+            }
+
             if (_planetTerrainGrid.ObstacleExists(newPosition))
                 return;
+
             CurrentGridPosition = newPosition;
         }
 
         public void MoveBackward()
         {
-            var newPosition = _planetTerrainGrid.GetNextGridPoint(CurrentGridPosition, Compass.GetOppositeDirection(CompassCurrentOrientation));
+            GridPoint newPosition;
+            switch (CompassCurrentOrientation)
+            {
+                case CompassDirection.NORTH:
+                    newPosition = _planetTerrainGrid.AdvanceSouth(CurrentGridPosition);
+                    break;
+                case CompassDirection.SOUTH:
+                    newPosition = _planetTerrainGrid.AdvanceNorth(CurrentGridPosition);
+                    break;
+                case CompassDirection.EAST:
+                    newPosition = _planetTerrainGrid.AdvanceWest(CurrentGridPosition);
+                    break;
+                case CompassDirection.WEST:
+                    newPosition = _planetTerrainGrid.AdvanceEast(CurrentGridPosition);
+                    break;
+                default:
+                    newPosition = CurrentGridPosition;
+                    break;
+            }
+
             if (_planetTerrainGrid.ObstacleExists(newPosition))
                 return;
+
             CurrentGridPosition = newPosition;
         }
 
