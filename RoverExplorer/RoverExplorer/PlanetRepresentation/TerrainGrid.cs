@@ -17,7 +17,7 @@ namespace RoverExplorer.PlanetRepresentation
 
         public TerrainGrid(int maxX, int maxY, List<GridPoint> obstacles = null)
         {
-            Obstacles = (obstacles == null) ? new List<GridPoint>() : obstacles;
+            Obstacles = obstacles ?? new List<GridPoint>();
             MaxX = maxX;
             MaxY = maxX;
         }
