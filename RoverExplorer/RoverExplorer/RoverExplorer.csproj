@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PlanetRepresentation\Compass.cs" />
     <Compile Include="PlanetRepresentation\GridPoint.cs" />
     <Compile Include="PlanetRepresentation\ITerrainGrid.cs" />
     <Compile Include="PlanetRepresentation\TerrainGrid.cs" />

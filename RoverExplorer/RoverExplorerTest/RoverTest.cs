@@ -18,32 +18,80 @@ namespace RoverExplorerTest
         }
 
         [TestMethod]
-        public void TestMoveForward()
+        public void TestMoveForwardWhenFacingNorthShouldIncreaseY()
         {
-            GridPoint originalPOsition = new GridPoint(0, 0);
+            GridPoint originalPosition = new GridPoint(0, 0);
             CompassDirection originalRoverDirection = CompassDirection.NORTH;
-            var rover = new Rover(terrainGrid.Object, originalPOsition, originalRoverDirection);
+            terrainGrid.Setup(x => x.GetNextGridPoint(originalPosition, originalRoverDirection)).Returns(new GridPoint(0, 1));
+            var rover = new Rover(terrainGrid.Object, originalPosition, originalRoverDirection);
 
             rover.MoveForward();
-            var newPosition = rover.CussrentGridPosition;
+            var newPosition = rover.CurrentGridPosition;
 
-            Assert.AreNotEqual(newPosition, originalPOsition);
-            Assert.IsTrue(newPosition.X == originalPOsition.X && newPosition.Y == originalPOsition.Y + 1);
+            Assert.AreNotEqual(newPosition, originalPosition);
+            Assert.IsTrue(newPosition.X == originalPosition.X && newPosition.Y == originalPosition.Y + 1);
+            Assert.IsTrue(rover.CompassCurrentOrientation == originalRoverDirection);
+        }
+
+        [TestMethod]
+        public void TestMoveForwardWhenFacingEastShouldIncreaseX()
+        {
+            GridPoint originalPosition = new GridPoint(2, 2);
+            CompassDirection originalRoverDirection = CompassDirection.EAST;
+            terrainGrid.Setup(x => x.GetNextGridPoint(originalPosition, originalRoverDirection)).Returns(new GridPoint(3, 2));
+            var rover = new Rover(terrainGrid.Object, originalPosition, originalRoverDirection);
+
+            rover.MoveForward();
+            var newPosition = rover.CurrentGridPosition;
+
+            Assert.IsTrue(newPosition.X == originalPosition.X + 1 && newPosition.Y == originalPosition.Y);
+            Assert.IsTrue(rover.CompassCurrentOrientation == originalRoverDirection);
+        }
+
+        [TestMethod]
+        public void TestMoveForwardWhenFacingSouthShouldDecreaseY()
+        {
+            GridPoint originalPosition = new GridPoint(2, 2);
+            CompassDirection originalRoverDirection = CompassDirection.EAST;
+            terrainGrid.Setup(x => x.GetNextGridPoint(originalPosition, originalRoverDirection)).Returns(new GridPoint(2, 1));
+            var rover = new Rover(terrainGrid.Object, originalPosition, originalRoverDirection);
+
+            rover.MoveForward();
+            var newPosition = rover.CurrentGridPosition;
+
+            Assert.IsTrue(newPosition.X == originalPosition.X && newPosition.Y == originalPosition.Y - 1);
+            Assert.IsTrue(rover.CompassCurrentOrientation == originalRoverDirection);
+        }
+
+        [TestMethod]
+        public void TestMoveForwardWhenFacingWestShouldDecreaseX()
+        {
+            GridPoint originalPosition = new GridPoint(2, 2);
+            CompassDirection originalRoverDirection = CompassDirection.EAST;
+            terrainGrid.Setup(x => x.GetNextGridPoint(originalPosition, originalRoverDirection)).Returns(new GridPoint(1, 2));
+            var rover = new Rover(terrainGrid.Object, originalPosition, originalRoverDirection);
+
+            rover.MoveForward();
+            var newPosition = rover.CurrentGridPosition;
+
+            Assert.IsTrue(newPosition.X == originalPosition.X - 1 && newPosition.Y == originalPosition.Y);
             Assert.IsTrue(rover.CompassCurrentOrientation == originalRoverDirection);
         }
 
         [TestMethod]
         public void TestMoveBackward()
         {
-            GridPoint originalPOsition = new GridPoint(0, 0);
-            CompassDirection originalRoverDirection = CompassDirection.NORTH;
-            var rover = new Rover(terrainGrid.Object, originalPOsition, originalRoverDirection);
+            GridPoint originalPosition = new GridPoint(2, 2);
+            GridPoint expectedPosition = new GridPoint(2, 1);
+            var originalRoverDirection = CompassDirection.NORTH;
+            terrainGrid.Setup(x => x.GetNextGridPoint(originalPosition, Compass.GetOppositeDirection(originalRoverDirection))).Returns(expectedPosition);
+            var rover = new Rover(terrainGrid.Object, originalPosition, originalRoverDirection);
 
             rover.MoveBackward();
-            var newPosition = rover.CussrentGridPosition;
+            var newPosition = rover.CurrentGridPosition;
 
-            Assert.AreNotEqual(newPosition, originalPOsition);
-            Assert.IsTrue(newPosition.X == originalPOsition.X && newPosition.Y == originalPOsition.Y - 1);
+            Assert.AreNotEqual(newPosition, originalPosition);
+            Assert.IsTrue(newPosition.X == expectedPosition.X && newPosition.Y == expectedPosition.Y);
             Assert.IsTrue(rover.CompassCurrentOrientation == originalRoverDirection);
         }
 
@@ -61,7 +109,7 @@ namespace RoverExplorerTest
             rover.TurnRight();
 
             Assert.IsTrue(rover.CompassCurrentOrientation == expectedRoverDirection);
-            Assert.IsTrue(rover.CussrentGridPosition == originalPosition);
+            Assert.IsTrue(rover.CurrentGridPosition == originalPosition);
         }
 
         [TestMethod]
@@ -77,7 +125,7 @@ namespace RoverExplorerTest
             rover.TurnLeft();
 
             Assert.IsTrue(rover.CompassCurrentOrientation == expectedRoverDirection);
-            Assert.IsTrue(rover.CussrentGridPosition == originalPosition);
+            Assert.IsTrue(rover.CurrentGridPosition == originalPosition);
         }
     }
 }

@@ -20,27 +20,32 @@ namespace RoverExplorer
         {
             _planetTerrainGrid = terrain;
             CompassCurrentOrientation = CompassDirection.NORTH;
-            CussrentGridPosition = new GridPoint(0,0);
+            CurrentGridPosition = new GridPoint(0,0);
         }
         public Rover(ITerrainGrid terrain, GridPoint initialPosition, CompassDirection orientation) 
             : this(terrain)
         {
             CompassCurrentOrientation = orientation;
-            CussrentGridPosition = initialPosition;
+            CurrentGridPosition = initialPosition;
         }
 
         public CompassDirection CompassCurrentOrientation { get; private set; }
-        public GridPoint CussrentGridPosition { get; private set; }
-
+        public GridPoint CurrentGridPosition { get; private set; }
 
         public void MoveForward()
         {
-            CussrentGridPosition = new GridPoint(CussrentGridPosition.X, CussrentGridPosition.Y + 1);
+            var newPosition = _planetTerrainGrid.GetNextGridPoint(CurrentGridPosition, CompassCurrentOrientation);
+            if (_planetTerrainGrid.ObstacleExists(newPosition))
+                return;
+            CurrentGridPosition = newPosition;
         }
 
-        public void  MoveBackward()
+        public void MoveBackward()
         {
-            CussrentGridPosition = new GridPoint(CussrentGridPosition.X, CussrentGridPosition.Y - 1);
+            var newPosition = _planetTerrainGrid.GetNextGridPoint(CurrentGridPosition, Compass.GetOppositeDirection(CompassCurrentOrientation));
+            if (_planetTerrainGrid.ObstacleExists(newPosition))
+                return;
+            CurrentGridPosition = newPosition;
         }
 
         public void TurnLeft()
